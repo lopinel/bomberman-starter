@@ -158,17 +158,17 @@ public class Bomber extends Character {
         if(ya > 0) _direction = 2;
         if(ya < 0) _direction = 0;
 
-//        if(canMove(0, ya)) { //separate the moves for the player can slide when is colliding
-//            _y += ya;
-//        }
-//
-//        if(canMove(xa, 0)) {
-//            _x += xa;
-//        }
-        if(canMove(xa, ya)){
+        if(canMove(0, ya)) { //separate the moves for the player can slide when is colliding
             _y += ya;
+        }
+
+        if(canMove(xa, 0)) {
             _x += xa;
         }
+//        if(canMove(xa, ya)){
+//            _y += ya;
+//            _x += xa;
+//        }
     }
 
     @Override

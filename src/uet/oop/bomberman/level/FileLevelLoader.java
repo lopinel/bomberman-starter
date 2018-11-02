@@ -48,11 +48,11 @@ public class FileLevelLoader extends LevelLoader {
 			_height = Integer.parseInt(line.substring(vt1+1, vt2));
 			_width = Integer.parseInt(line.substring(vt2+1, line.length()));
 
-
+			System.out.println(_level + ", " + _height + ", " + _width);
+			_map = new char[_height][_width];
 			for(int i=0; i<_height; i++){
 				_map[i] = br.readLine().toCharArray();
 			}
-
 			is.close();
 		}
 		catch (Exception e){
@@ -70,37 +70,35 @@ public class FileLevelLoader extends LevelLoader {
 		// thêm Wall
 		for (int x = 0; x < _height; x++) {
 			for (int y = 0; y < _width; y++) {
-				int pos = x + y * _width;
+				int pos = y + x * _width;
 				Sprite sprite;
 				if(_map[x][y] == '#'){
 					sprite = Sprite.wall;
-					_board.addEntity(pos, new Grass(x, y, sprite));
+					_board.addEntity(pos, new Grass(y, x, sprite));
 				}
 				else if(_map[x][y] == '*'){
-					_board.addEntity(x + y * _width,
-							new LayeredEntity(x, y,
-									new Grass(x, y, Sprite.grass),
-									new Brick(x, y, Sprite.brick)
+					_board.addEntity(pos,
+							new LayeredEntity(y, x,
+									new Grass(y, x, Sprite.grass),
+									new Brick(y, x, Sprite.brick)
 							)
 					);
 				}
 				else if(_map[x][y] == 'x'){
 					sprite = Sprite.portal;
-					_board.addEntity(pos, new Grass(x, y, sprite));
+					_board.addEntity(pos, new Grass(y, x, sprite));
 				}
 				else if(_map[x][y] == 'p'){
 					_board.addCharacter( new Bomber(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board) );
 					Screen.setOffset(0, 0);
-					_board.addEntity(x + y * _width, new Grass(x, y, Sprite.grass));
+					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
 				}
 				else if(_map[x][y] == '1'){
 					_board.addCharacter( new Balloon(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
-					_board.addEntity(x + y * _width, new Grass(x, y, Sprite.grass));
+					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
 				}
-
-
 				else
-					_board.addEntity(pos, new Grass(x, y, Sprite.grass));
+					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
 			}
 		}
 
