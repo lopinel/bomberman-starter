@@ -7,7 +7,11 @@ import uet.oop.bomberman.entities.LayeredEntity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Balloon;
 import uet.oop.bomberman.entities.tile.Grass;
+import uet.oop.bomberman.entities.tile.Portal;
+import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
+import uet.oop.bomberman.entities.tile.item.BombItem;
+import uet.oop.bomberman.entities.tile.item.FlameItem;
 import uet.oop.bomberman.entities.tile.item.SpeedItem;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.Screen;
@@ -71,10 +75,8 @@ public class FileLevelLoader extends LevelLoader {
 		for (int x = 0; x < _height; x++) {
 			for (int y = 0; y < _width; y++) {
 				int pos = y + x * _width;
-				Sprite sprite;
 				if(_map[x][y] == '#'){
-					sprite = Sprite.wall;
-					_board.addEntity(pos, new Grass(y, x, sprite));
+					_board.addEntity(pos, new Wall(y, x, Sprite.wall));
 				}
 				else if(_map[x][y] == '*'){
 					_board.addEntity(pos,
@@ -85,8 +87,7 @@ public class FileLevelLoader extends LevelLoader {
 					);
 				}
 				else if(_map[x][y] == 'x'){
-					sprite = Sprite.portal;
-					_board.addEntity(pos, new Grass(y, x, sprite));
+					_board.addEntity(pos, new Portal(y, x, Sprite.portal));
 				}
 				else if(_map[x][y] == 'p'){
 					_board.addCharacter( new Bomber(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board) );
@@ -94,8 +95,29 @@ public class FileLevelLoader extends LevelLoader {
 					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
 				}
 				else if(_map[x][y] == '1'){
-					_board.addCharacter( new Balloon(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+					_board.addCharacter( new Balloon(Coordinates.tileToPixel(y), Coordinates.tileToPixel(x) + Game.TILES_SIZE, _board));
 					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
+				}
+				else if(_map[x][y] == 'b'){
+					LayeredEntity layer = new LayeredEntity(y, x,
+							new Grass(y, x, Sprite.grass),
+							new Brick(y, x, Sprite.brick));
+					layer.addBeforeTop(new BombItem(y, x, Sprite.powerup_bombs));
+					_board.addEntity(pos, layer);
+				}
+				else if(_map[x][y] == 'f'){
+					LayeredEntity layer = new LayeredEntity(y, x,
+							new Grass(y ,x, Sprite.grass),
+							new Brick(y, x, Sprite.brick));
+					layer.addBeforeTop(new FlameItem(y, x, Sprite.powerup_flames));
+					_board.addEntity(pos, layer);
+				}
+				else if(_map[x][y] == 's'){
+					LayeredEntity layer = new LayeredEntity(y, x,
+							new Grass(y, x, Sprite.grass),
+							new Brick(y, x, Sprite.brick));
+					layer.addBeforeTop(new SpeedItem(y, x, Sprite.powerup_speed));
+					_board.addEntity(pos, layer);
 				}
 				else
 					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
