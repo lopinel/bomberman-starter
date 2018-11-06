@@ -5,7 +5,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.LayeredEntity;
 import uet.oop.bomberman.entities.character.Bomber;
-import uet.oop.bomberman.entities.character.enemy.Balloon;
+import uet.oop.bomberman.entities.character.enemy.*;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.Portal;
 import uet.oop.bomberman.entities.tile.Wall;
@@ -71,7 +71,6 @@ public class FileLevelLoader extends LevelLoader {
 
 		// TODO: phần code mẫu ở dưới để hướng dẫn cách thêm các loại Entity vào game
 		// TODO: hãy xóa nó khi hoàn thành chức năng load màn chơi từ tệp cấu hình
-		// thêm Wall
 		for (int x = 0; x < _height; x++) {
 			for (int y = 0; y < _width; y++) {
 				int pos = y + x * _width;
@@ -94,10 +93,28 @@ public class FileLevelLoader extends LevelLoader {
 					Screen.setOffset(0, 0);
 					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
 				}
+				// Add enemys
 				else if(_map[x][y] == '1'){
 					_board.addCharacter( new Balloon(Coordinates.tileToPixel(y), Coordinates.tileToPixel(x) + Game.TILES_SIZE, _board));
 					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
 				}
+				else if(_map[x][y] == '2'){
+					_board.addCharacter( new Oneal(Coordinates.tileToPixel(y), Coordinates.tileToPixel(x) + Game.TILES_SIZE, _board));
+					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
+				}
+				else if(_map[x][y] == '3'){
+					_board.addCharacter( new Doll(Coordinates.tileToPixel(y), Coordinates.tileToPixel(x) + Game.TILES_SIZE, _board));
+					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
+				}
+				else if(_map[x][y] == '4'){
+					_board.addCharacter( new Minvo(Coordinates.tileToPixel(y), Coordinates.tileToPixel(x) + Game.TILES_SIZE, _board));
+					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
+				}
+				else if(_map[x][y] == '5'){
+					_board.addCharacter( new Kondoria(Coordinates.tileToPixel(y), Coordinates.tileToPixel(x) + Game.TILES_SIZE, _board));
+					_board.addEntity(pos, new Grass(y, x, Sprite.grass));
+				}
+				// Add powerups
 				else if(_map[x][y] == 'b'){
 					LayeredEntity layer = new LayeredEntity(y, x,
 							new Grass(y, x, Sprite.grass),
