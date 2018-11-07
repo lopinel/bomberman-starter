@@ -14,12 +14,8 @@ public class GameMenu extends MenuBar {
     private Menu levels ;
 
     private MenuItem pauseItem ;
+    private MenuItem resumeItem;
     private MenuItem[] levelItems;
-    private MenuItem level1Item ;
-    private MenuItem level2Item ;
-    private MenuItem level3Item ;
-    private MenuItem level4Item ;
-    private MenuItem level5Item ;
 
     public GameMenu(Board board){
 
@@ -28,6 +24,8 @@ public class GameMenu extends MenuBar {
         Menu levels = new Menu("Levels");
 
         pauseItem = new MenuItem("Pause");
+        resumeItem = new MenuItem("Resume");
+        resumeItem.setEnabled(false);
 
         levelItems = new MenuItem[5];
         for(int i = 0; i<5; i++){
@@ -72,12 +70,23 @@ public class GameMenu extends MenuBar {
         pauseItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                _board.setShow(3);
+                _board.gamePause();
+                resumeItem.setEnabled(true);
+                pauseItem.setEnabled(false);
+            }
+        });
+        resumeItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                _board.gameResume();
+                resumeItem.setEnabled(false);
+                pauseItem.setEnabled(true);
             }
         });
 
 
         file.add(pauseItem);
+        file.add(resumeItem);
         file.add(levels);
 
         this.add(file);

@@ -329,6 +329,17 @@ public class Board implements IRender {
 		else
 			return this._time--;
 	}
+	public void gamePause(){
+		_game.resetScreenDelay();
+		if(_screenToShow <=0)
+			_screenToShow = 3;
+		_game.pause();
+	}
+	public void gameResume(){
+		_game.resetScreenDelay();
+		_screenToShow = -1;
+		_game.resume();
+	}
 
 	public Keyboard getInput() {
 		return _input;
