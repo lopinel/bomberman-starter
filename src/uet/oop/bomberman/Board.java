@@ -31,7 +31,8 @@ public class Board implements IRender {
 	public List<Character> _characters = new ArrayList<>();
 	protected List<Bomb> _bombs = new ArrayList<>();
 	private List<Message> _messages = new ArrayList<>();
-	
+
+	private int _currentLevel = 1;
 	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
 	
 	private int _time = Game.TIME;
@@ -42,7 +43,7 @@ public class Board implements IRender {
 		_input = input;
 		_screen = screen;
 		
-		loadLevel(2); //start in level 1
+		loadLevel(1); //start in level 1
 	}
 	
 	@Override
@@ -84,6 +85,7 @@ public class Board implements IRender {
 	
 	public void nextLevel() {
 		loadLevel(_levelLoader.getLevel() + 1);
+		_game.getFrame().updateMenu();
 	}
 	
 	public void loadLevel(int level) {
@@ -94,6 +96,8 @@ public class Board implements IRender {
 		_characters.clear();
 		_bombs.clear();
 		_messages.clear();
+		_game.resetBomber();
+		_currentLevel = level;
 		
 		try {
 			_levelLoader = new FileLevelLoader(this, level);
@@ -365,5 +369,8 @@ public class Board implements IRender {
 	public int getHeight() {
 		return _levelLoader.getHeight();
 	}
-	
+
+	public int get_currentLevel() {
+		return _currentLevel;
+	}
 }

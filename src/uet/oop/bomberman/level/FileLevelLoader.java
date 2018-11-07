@@ -86,7 +86,11 @@ public class FileLevelLoader extends LevelLoader {
 					);
 				}
 				else if(_map[x][y] == 'x'){
-					_board.addEntity(pos, new Portal(y, x, Sprite.portal));
+					LayeredEntity layer = new LayeredEntity(y, x,
+							new Grass(y, x, Sprite.grass),
+							new Brick(y, x, Sprite.brick));
+					layer.addBeforeTop(new Portal(y, x, _board, Sprite.portal));
+					_board.addEntity(pos, layer);
 				}
 				else if(_map[x][y] == 'p'){
 					_board.addCharacter( new Bomber(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board) );

@@ -154,6 +154,12 @@ public class Game extends Canvas {
 			}
 		}
 	}
+
+	public void resetBomber(){
+		bombRate = BOMBRATE;
+		bombRadius = BOMBRADIUS;
+		bomberSpeed = BOMBERSPEED;
+	}
 	
 	public static double getBomberSpeed() {
 		return bomberSpeed;
@@ -185,6 +191,10 @@ public class Game extends Canvas {
 
 	public Board getBoard() {
 		return _board;
+	}
+
+	public Frame getFrame(){
+		return _frame;
 	}
 
 	public boolean isPaused() {
