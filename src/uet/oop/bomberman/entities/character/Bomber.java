@@ -86,7 +86,7 @@ public class Bomber extends Character {
         // TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs về 0
         if(_input.space && _timeBetweenPutBombs < 0 && Game.getBombRate()>0){
             int xt = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
-            int yt = Coordinates.pixelToTile( (_y + _sprite.getSize() / 2) - _sprite.getSize() );
+            int yt = Coordinates.pixelToTile((_y - _sprite.getSize() / 2));
 
             placeBomb(xt, yt);
             Game.addBombRate(-1);
@@ -147,10 +147,12 @@ public class Bomber extends Character {
     @Override
     public boolean canMove(double x, double y) {
         // TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
-        for (int c = 0; c < 4; c++) { //colision detection for each corner of the player
+//        System.out.println("------");
+        for (int c = 0; c < 4; c++) { //colision detection for each corner of the bomber
             double xt = ((_x + x) + c % 2 * 11) / Game.TILES_SIZE ; //divide with tiles size to pass to tile coordinate
             double yt = ((_y + y) + c / 2 * 12 - 13) / Game.TILES_SIZE;
 
+//            System.out.println(_x + ", " + _y + ", " + xt*16 + ", " + yt*16);
 
             Entity a = _board.getEntity(xt, yt, this);
 
