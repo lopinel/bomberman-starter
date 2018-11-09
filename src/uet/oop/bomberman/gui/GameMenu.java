@@ -1,6 +1,7 @@
 package uet.oop.bomberman.gui;
 
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.input.Keyboard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,11 @@ public class GameMenu extends MenuBar {
         pauseItem = new MenuItem("Pause");
         resumeItem = new MenuItem("Resume");
         resumeItem.setEnabled(false);
+        MenuShortcut pauseShortcut = new MenuShortcut(0x50);
+        MenuShortcut resumeShortcut = new MenuShortcut(0x52);
+
+        resumeItem.setShortcut(resumeShortcut);
+        pauseItem.setShortcut(pauseShortcut);
 
         levelItems = new MenuItem[5];
         for(int i = 0; i<5; i++){
