@@ -17,6 +17,7 @@ public class GameMenu extends MenuBar {
 
     private MenuItem pauseItem ;
     private MenuItem resumeItem;
+    private MenuItem commandItem;
     private MenuItem about;
     private MenuItem help;
     private MenuItem[] levelItems;
@@ -30,9 +31,18 @@ public class GameMenu extends MenuBar {
 
         about = new MenuItem("About");
         help = new MenuItem("Help");
+        commandItem = new MenuItem("Command");
         pauseItem = new MenuItem("Pause");
         resumeItem = new MenuItem("Resume");
         resumeItem.setEnabled(false);
+
+        MenuShortcut pauseShortcut = new MenuShortcut(0x50);
+        MenuShortcut resumeShortcut = new MenuShortcut(0x52);
+        MenuShortcut commandShortcut = new MenuShortcut(0x43);
+
+        resumeItem.setShortcut(resumeShortcut);
+        pauseItem.setShortcut(pauseShortcut);
+        commandItem.setShortcut(commandShortcut);
 
         levelItems = new MenuItem[5];
         for(int i = 0; i<5; i++){
@@ -90,6 +100,14 @@ public class GameMenu extends MenuBar {
                 pauseItem.setEnabled(true);
             }
         });
+        commandItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = JOptionPane.showInputDialog(null, "Your command");
+                if(s != null && s.equals("mqcc"))
+                    _board.unlockLevels();
+            }
+        });
         help.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -111,6 +129,7 @@ public class GameMenu extends MenuBar {
         more.add(about);
         gameMe.add(pauseItem);
         gameMe.add(resumeItem);
+        gameMe.add(commandItem);
         gameMe.add(levels);
 
         this.add(gameMe);

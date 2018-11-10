@@ -1,5 +1,6 @@
 package uet.oop.bomberman;
 
+import sound.SoundEffect;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.gui.Frame;
 import uet.oop.bomberman.input.Keyboard;
@@ -46,7 +47,8 @@ public class Game extends Canvas {
 	private Board _board;
 	private Screen screen;
 	private Frame _frame;
-	
+
+	public SoundEffect soundEffect = new SoundEffect();
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
@@ -118,6 +120,7 @@ public class Game extends Canvas {
 		int frames = 0;
 		int updates = 0;
 		requestFocus();
+		soundEffect.playTheme();
 		while(_running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;

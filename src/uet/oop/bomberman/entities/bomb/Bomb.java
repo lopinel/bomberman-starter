@@ -92,7 +92,7 @@ public class Bomb extends AnimatedEntitiy {
 		for(int i=0; i<4; i++){
 			_flames[i] = new Flame((int)_x, (int)_y, i, Game.getBombRadius(), _board);
 		}
-
+		_board.getGame().soundEffect.playBombExplode();
 	}
 	
 	public FlameSegment flameAt(int x, int y) {

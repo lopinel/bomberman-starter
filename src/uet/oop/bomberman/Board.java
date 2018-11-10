@@ -334,11 +334,17 @@ public class Board implements IRender {
 		if(_screenToShow <=0)
 			_screenToShow = 3;
 		_game.pause();
+		_game.soundEffect.playPause();
 	}
 	public void gameResume(){
 		_game.resetScreenDelay();
 		_screenToShow = -1;
 		_game.resume();
+		_game.soundEffect.playPause();
+	}
+	public void unlockLevels(){
+		_currentLevel = 5;
+		getGame().getFrame().updateMenu();
 	}
 
 	public Keyboard getInput() {

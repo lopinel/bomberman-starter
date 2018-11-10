@@ -47,6 +47,11 @@ public class Frame extends JFrame {
 	public void updateMenu(){
 		menu.update();
 	}
+	public String getCommand(){
+		String s = JOptionPane.showInputDialog("Your command");
+		if(s == null) return "no";
+		return s;
+	}
 	
 	public void setTime(int time) {
 		_infopanel.setTime(time);

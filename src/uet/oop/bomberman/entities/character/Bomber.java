@@ -118,6 +118,7 @@ public class Bomber extends Character {
     public void kill() {
         if (!_alive) return;
         _alive = false;
+        _board.getGame().soundEffect.playNo();
     }
 
     @Override
@@ -197,6 +198,7 @@ public class Bomber extends Character {
         else if(i instanceof SpeedItem){
             Game.addBomberSpeed(0.3);
         }
+        _board.getGame().soundEffect.playItemGet();
     }
 
     @Override
