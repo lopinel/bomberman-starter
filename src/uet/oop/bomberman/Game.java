@@ -36,6 +36,9 @@ public class Game extends Canvas {
 	protected static int bombRate = BOMBRATE;
 	protected static int bombRadius = BOMBRADIUS;
 	protected static double bomberSpeed = BOMBERSPEED;
+
+
+	protected static int bomberLives = 3;
 	
 	
 	protected int _screenDelay = SCREENDELAY;
@@ -147,6 +150,7 @@ public class Game extends Canvas {
 			if(System.currentTimeMillis() - timer > 1000) {
 				_frame.setTime(_board.subtractTime());
 				_frame.setPoints(_board.getPoints());
+				_frame.setLives(getBomberLives());
 				timer += 1000;
 				_frame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
 				updates = 0;
@@ -175,7 +179,15 @@ public class Game extends Canvas {
 	public static int getBombRadius() {
 		return bombRadius;
 	}
-	
+
+	public static int getBomberLives() {
+		return bomberLives;
+	}
+
+	public static void addBomberLives(int bomberLives) {
+		Game.bomberLives += bomberLives;
+	}
+
 	public static void addBomberSpeed(double i) {
 		bomberSpeed += i;
 	}
