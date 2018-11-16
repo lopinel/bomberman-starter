@@ -11,18 +11,6 @@ import javax.sound.sampled.Clip;
 import java.io.InputStream;
 
 public class SoundEffect {
-    private Clip game_over;
-    private Clip bomb_explode;
-    private Clip item_get;
-    private Clip no;
-    private Clip pause;
-
-    private AudioInputStream game_overStream;
-    private AudioInputStream item_getStream;
-    private AudioInputStream noStream;
-    private AudioInputStream pauseStream;
-    private AudioInputStream bombStream;
-
 
     public SoundEffect(){
     }
@@ -30,12 +18,10 @@ public class SoundEffect {
 
     public void playBombExplode(){
         try {
-            InputStream inputStream4 = this.getClass().getResourceAsStream("/sound/BOM_11_S.wav");
-            bombStream = AudioSystem.getAudioInputStream(inputStream4);
+            InputStream inputStream = this.getClass().getResourceAsStream("/sound/BOM_11_S.wav");
+            AudioStream as = new AudioStream(inputStream);
+            AudioPlayer.player.start(as);
 
-            bomb_explode = AudioSystem.getClip();
-            bomb_explode.open(bombStream);
-            bomb_explode.start();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -43,24 +29,20 @@ public class SoundEffect {
     }
     public void playItemGet(){
         try {
-            InputStream inputStream1 = this.getClass().getResourceAsStream("/sound/ITEM_GET.wav");
-            item_getStream = AudioSystem.getAudioInputStream(inputStream1);
+            InputStream inputStream = this.getClass().getResourceAsStream("/sound/ITEM_GET.wav");
+            AudioStream as = new AudioStream(inputStream);
+            AudioPlayer.player.start(as);
 
-            item_get = AudioSystem.getClip();
-            item_get.open(item_getStream);
-            item_get.start();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
     public void playNo(){
         try {
-            InputStream inputStream4 = this.getClass().getResourceAsStream("/sound/NO.wav");
-            noStream = AudioSystem.getAudioInputStream(inputStream4);
+            InputStream inputStream = this.getClass().getResourceAsStream("/sound/NO.wav");
+            AudioStream as = new AudioStream(inputStream);
+            AudioPlayer.player.start(as);
 
-            no = AudioSystem.getClip();
-            no.open(noStream);
-            no.start();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -69,23 +51,19 @@ public class SoundEffect {
     public void playGameOver(){
         try{
             InputStream inputStream = this.getClass().getResourceAsStream("/sound/GAME_OVER.wav");
-            game_overStream = AudioSystem.getAudioInputStream(inputStream);
+            AudioStream as = new AudioStream(inputStream);
+            AudioPlayer.player.start(as);
 
-            game_over = AudioSystem.getClip();
-            game_over.open(game_overStream);
-            game_over.start();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
     public void playPause(){
         try{
-            InputStream inputStream3 = this.getClass().getResourceAsStream("/sound/PAUSE.wav");
-            pauseStream = AudioSystem.getAudioInputStream(inputStream3);
+            InputStream inputStream = this.getClass().getResourceAsStream("/sound/PAUSE.wav");
+            AudioStream as = new AudioStream(inputStream);
+            AudioPlayer.player.start(as);
 
-            pause = AudioSystem.getClip();
-            pause.open(pauseStream);
-            pause.start();
         }catch (Exception e){
             e.printStackTrace();
         }
