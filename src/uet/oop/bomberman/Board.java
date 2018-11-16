@@ -12,6 +12,7 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.FileLevelLoader;
 import uet.oop.bomberman.level.LevelLoader;
+import uet.oop.bomberman.sound.SoundEffect;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -89,6 +90,10 @@ public class Board implements IRender {
 	}
 	
 	public void loadLevel(int level) {
+		if(level > Game.FINALLEVEL){
+			gameClear();
+			return;
+		}
 		_time = Game.TIME;
 		_screenToShow = 2;
 		_game.resetScreenDelay();
@@ -118,6 +123,13 @@ public class Board implements IRender {
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+		_game.soundEffect.playGameOver();
+	}
+
+	public void gameClear(){
+		_screenToShow = 4;
+		_game.resetScreenDelay();
+		_game.pause();
 	}
 	
 	public boolean detectNoEnemies() {
@@ -140,6 +152,9 @@ public class Board implements IRender {
 				break;
 			case 3:
 				_screen.drawPaused(g);
+				break;
+			case 4:
+				_screen.drawGameClear(g);
 				break;
 		}
 	}

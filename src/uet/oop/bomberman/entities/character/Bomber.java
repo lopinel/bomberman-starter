@@ -18,6 +18,7 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.Coordinates;
+import uet.oop.bomberman.level.FileLevelLoader;
 
 import java.util.Iterator;
 import java.util.List;
@@ -119,13 +120,18 @@ public class Bomber extends Character {
         if (!_alive) return;
         _alive = false;
         _board.getGame().soundEffect.playNo();
+        Game.addBomberLives(-1);
     }
 
     @Override
     protected void afterKill() {
         if (_timeAfter > 0) --_timeAfter;
         else {
-            _board.endGame();
+            if(Game.getBomberLives() == 0)
+                _board.endGame();
+            else{
+                _board.loadLevel(_board.get_currentLevel());
+            }
         }
     }
 
