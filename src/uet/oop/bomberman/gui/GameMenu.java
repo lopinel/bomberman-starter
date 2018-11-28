@@ -1,6 +1,7 @@
 package uet.oop.bomberman.gui;
 
 import uet.oop.bomberman.Board;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.input.Keyboard;
 
 import javax.swing.*;
@@ -105,8 +106,24 @@ public class GameMenu extends MenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String s = JOptionPane.showInputDialog(null, "Your command");
-                if(s != null && s.equals("mqcc"))
-                    _board.unlockLevels();
+                try{
+                    if(s != null)
+                        if(s.equals("mqcc"))
+                            _board.unlockLevels();
+                        else if(s.substring(0, s.indexOf(' ')).equals("moreBomb")){
+                            Game.addBombRate(new Integer(s.substring(s.indexOf(' ')+1)) * 1);
+                        }
+                        else if(s.substring(0, s.indexOf(' ')).equals("moreSpeed")){
+                            Game.addBomberSpeed(new Integer(s.substring(s.indexOf(' ')+1)) * 0.3);
+                        }
+                        else if(s.substring(0, s.indexOf(' ')).equals("moreFlame")){
+                            Game.addBombRadius(new Integer(s.substring(s.indexOf(' ')+1)) * 1);
+                        }
+                        else
+                            JOptionPane.showMessageDialog(null, "CANNOT RESOLVE YOUR COMMAND !!!");
+                }catch (Exception x){
+                    JOptionPane.showMessageDialog(null, "CANNOT RESOLVE YOUR COMMAND !!!");
+                }
             }
         });
         help.addActionListener(new ActionListener() {
